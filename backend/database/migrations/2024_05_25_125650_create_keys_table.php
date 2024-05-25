@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('keys', function (Blueprint $table) {
             $table->id();
-            $table->string("Key");
-            $table->text("Value");
+            $table->string("key");
+            $table->text("value");
+            $table->foreignId("game_ds_id")->constrained("game_ds");
             $table->timestamps();
         });
     }

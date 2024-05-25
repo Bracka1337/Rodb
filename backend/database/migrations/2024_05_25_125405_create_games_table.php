@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('universeId');
-            $table->foreignId("game_ds_id")->constrained("game_ds");
             $table->foreignId("user_id")->constrained("users");
             $table->timestamps();
         });
