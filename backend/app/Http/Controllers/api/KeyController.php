@@ -14,7 +14,7 @@ class KeyController extends Controller
      */
     public function index()
     {
-        return KeyResource::all();
+        return KeyResource::collection(Key::all());
     }
 
     /**
@@ -25,7 +25,7 @@ class KeyController extends Controller
         $validated = $request->validate([
             'key' => 'required',
             'value' => 'required',
-            'game_ds_id' => 'required|exists:game_ds,id',
+            'game_ds_id' => 'required|exists:game__ds,id',
         ]);
         $key = Key::create($validated);
         return new KeyResource($key);

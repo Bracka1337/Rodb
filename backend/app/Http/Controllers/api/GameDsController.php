@@ -14,7 +14,7 @@ class GameDsController extends Controller
      */
     public function index()
     {
-        return GameDsResource::all();
+        return GameDsResource::collection(Game_Ds::all());
     }
 
     /**

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\GameController;
+use App\Http\Controllers\api\GameDsController;
+use App\Http\Controllers\api\KeyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +24,10 @@ use App\Http\Controllers\Api\ApiController;
 // Open routes
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
+
+Route::apiResource('game', GameController::class);
+Route::apiResource('game_ds', GameDsController::class);
+Route::apiResource('key', KeyController::class);
 
 // Protected routes
 Route::group([

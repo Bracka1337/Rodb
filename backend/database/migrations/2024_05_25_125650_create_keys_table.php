@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("key");
             $table->text("value");
-            $table->foreignId("game_ds_id")->constrained("game_ds");
+            $table->foreignId("game_ds_id")->constrained("game__ds");
             $table->timestamps();
         });
     }
