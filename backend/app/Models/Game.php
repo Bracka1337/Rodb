@@ -12,6 +12,7 @@ class Game extends Model
     protected $fillable = [
         'name',
         'universeId',
+        'roblox-api-key',
         'user_id',
     ];
 }

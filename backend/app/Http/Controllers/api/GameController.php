@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GameResource;
 use Illuminate\Http\Request;
 use App\Models\Game;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -22,13 +23,26 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $validated = $request->validate([
             'name' => 'required',
             'universeId' => 'required|integer',
-            'user_id' => 'required|exists:users,id',
+            'roblox-api-key' => 'required',
         ]);
 
-        $game = Game::create($validated);
+        $user_id = Auth::user()->id;
+
+        $data = [
+            'name' => $validated['name'],
+            'universeId' => $validated['universeId'],
+            'roblox-api-key' => $validated['roblox-api-key'],
+            'user_id' => $user_id,
+        ];
+
+        $game = Game::create($data);
 
         return new GameResource($game);
     }

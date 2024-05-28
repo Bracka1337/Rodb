@@ -1,3 +1,3 @@
 <div>
-    <h1>EJ NAHUJ</h1>
+    <h1>Hi!</h1>
 </div>
