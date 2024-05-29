@@ -23,9 +23,9 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        // if (!Auth::check()) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
 
         $validated = $request->validate([
             'name' => 'required',
