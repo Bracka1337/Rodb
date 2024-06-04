@@ -23,9 +23,11 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        // if (!Auth::check()) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $user_id = Auth::user()->id;
+
 
         $validated = $request->validate([
             'name' => 'required',
@@ -33,7 +35,6 @@ class GameController extends Controller
             'roblox-api-key' => 'required',
         ]);
 
-        $user_id = Auth::user()->id;
 
         $data = [
             'name' => $validated['name'],

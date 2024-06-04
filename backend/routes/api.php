@@ -25,12 +25,9 @@ use App\Http\Controllers\Api\ApiController;
 // Open routes
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
-
 Route::get('/roblox-data', [RobloxController::class, 'getData']);
 
-Route::apiResource('game', GameController::class);
-Route::apiResource('game_ds', GameDsController::class);
-Route::apiResource('key', KeyController::class);
+
 
 // Protected routes
 Route::group([
@@ -38,4 +35,7 @@ Route::group([
 ], function (){
     Route::get('/profile', [ApiController::class, 'profile']);
     Route::get('/logout', [ApiController::class, 'logout']);
+    Route::apiResource('game', GameController::class);
+    Route::apiResource('game_ds', GameDsController::class);
+    Route::apiResource('key', KeyController::class);
 });
