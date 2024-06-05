@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 // Open routes
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
-Route::get('/roblox-data', [RobloxController::class, 'getData']);
+Route::get('/roblox-data', [RobloxController::class, 'getDatastores']);
 
 
 

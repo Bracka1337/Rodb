@@ -32,14 +32,14 @@ class GameController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'universeId' => 'required|integer',
-            'roblox-api-key' => 'required',
+            'roblox_api_key' => 'required',
         ]);
 
 
         $data = [
             'name' => $validated['name'],
             'universeId' => $validated['universeId'],
-            'roblox-api-key' => $validated['roblox-api-key'],
+            'roblox_api_key' => $validated['roblox_api_key'],
             'user_id' => $user_id,
         ];
 
