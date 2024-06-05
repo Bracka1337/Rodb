@@ -52,7 +52,7 @@ class RobloxController extends Controller
 
         $values = [];
         foreach ($keys as $key) {
-            $valueUri = sprintf("https://apis.roblox.com/datastores/universes/%d/standard-datastores/datastore/entries/entry", $universeId);
+            $valueUri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores/datastore/entries/entry", $universeId);
             $valueResponse = $client->request('GET', $valueUri, [
                 'headers' => [
                     'x-api-key' => $apikey
