@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Game_Ds;
+use App\Models\Game_ds;
 use App\Http\Resources\GameDsResource;
 
 class GameDsController extends Controller
@@ -14,7 +14,7 @@ class GameDsController extends Controller
      */
     public function index()
     {
-        return GameDsResource::collection(Game_Ds::all());
+        return GameDsResource::collection(Game_ds::all());
     }
 
     /**
@@ -27,7 +27,7 @@ class GameDsController extends Controller
             'game_id' => 'required|exists:games,id',
         ]);
 
-        $game_Ds = Game_Ds::create($validated);
+        $game_Ds = Game_ds::create($validated);
 
         return new GameDsResource($game_Ds);
     }
@@ -35,7 +35,7 @@ class GameDsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Game_Ds $game_Ds)
+    public function show(Game_ds $game_Ds)
     {
         return new GameDsResource($game_Ds);
     }
@@ -43,7 +43,7 @@ class GameDsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Game_Ds $game_Ds)
+    public function update(Request $request, Game_ds $game_Ds)
     {
         $validated = $request->validate([
             'name' => 'required',
@@ -56,7 +56,7 @@ class GameDsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game_Ds $game_Ds)
+    public function destroy(Game_ds $game_Ds)
     {
         $game_Ds->delete();
         return new GameDsResource($game_Ds);

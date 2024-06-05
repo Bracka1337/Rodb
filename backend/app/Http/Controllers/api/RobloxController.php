@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Game;
-use App\Models\Game_Ds;
+use App\Models\Game_ds;
 
 class RobloxController extends Controller
 {
@@ -28,13 +28,13 @@ class RobloxController extends Controller
         $dataFromRoblox = json_decode($response->getBody()->getContents(), true);
 
         foreach ($dataFromRoblox['data']?? [] as $datastoreData) {
-            Game_Ds::create([
+            Game_ds::create([
                 'name' => $datastoreData['name'],
                 'game_id' => $game->id,
             ]);
         }
 
-        $savedDatastores = Game_Ds::where('game_id', $game->id)->get();
+        $savedDatastores = Game_ds::where('game_id', $game->id)->get();
     
         return response()->json($savedDatastores);
     }
