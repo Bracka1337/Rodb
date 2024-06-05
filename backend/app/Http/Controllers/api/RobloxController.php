@@ -29,36 +29,44 @@ class RobloxController extends Controller
         return response()->json($dataFromRoblox);
     }
 
-    // public function getKeys(Request $request) {
-    //     $client = new Client();
-    //     $response = $client->request('GET', 'https://apis.roblox.com/datastores/v1/universes/5697506348/standard-datastores/datastore/entries', [
-    //         'headers' => [
-    //             'x-api-key' => 'RGZwK37KMEeGWQ/xn5gSZVHx6yrp8r3IBp38EMqHSNXhixUT'
-    //         ],
-    //         'query' => [
-    //             'datastoreName' => 'PlayerInfoDev'
-    //         ]
-    //     ]);
-    // }
+    public function getKeysAndValues(Request $request)
+    {
+        $game = Game::find($request->input('game_id'));
+        $universeId = $game->universeId;
+        $apikey = $game->roblox_api_key;
 
-    // public function getKeyValue(Request $request) {
-    //     $client = new Client();
-    //     $response = $client->request('GET', 'https://apis.roblox.com/datastores/v1/universes/5697506348/standard-datastores/datastore/entries', [
-    //         'headers' => [
-    //             'x-api-key' => 'RGZwK37KMEeGWQ/xn5gSZVHx6yrp8r3IBp38EMqHSNXhixUT'
-    //         ],
-    //         'query' => [
-    //             'datastoreName' => 'PlayerInfoDev'
-    //         ]
-    //     ]);
-    // }
+        $uri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores/entries", $universeId);
+        $dsName = $request->input('datastoreName');
 
-    // public function fetchMultipleKeys() {
-        
-    // }
+        $client = new Client();
+        $initialResponse = $client->request('GET', $uri, [
+            'headers' => [
+                'x-api-key' => $apikey
+            ],
+            'query' => [
+                'datastoreName' => $dsName
+            ]
+        ]);
+        $initialData = json_decode($initialResponse->getBody(), true);
+        $keys = $initialData['keys'];
 
+        $values = [];
+        foreach ($keys as $key) {
+            $valueUri = sprintf("https://apis.roblox.com/datastores/universes/%d/standard-datastores/entries/entry", $universeId);
+            $valueResponse = $client->request('GET', $valueUri, [
+                'headers' => [
+                    'x-api-key' => $apikey
+                ],
+                'query' => [
+                    'datastoreName' => $dsName,
+                    'entryKey' => $key['key']
+                ]
+            ]);
 
-    // public function fetchData(Request $request) {
+            $valueData = json_decode($valueResponse->getBody(), true);
+            $values[] = ['key' => $key['key'], 'value' => $valueData];
+        }
 
-    // }
+        return response()->json(['keysAndValues' => $values]);
+    }
 }

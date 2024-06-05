@@ -23,9 +23,6 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
         $user_id = Auth::user()->id;
 
 
@@ -53,6 +50,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
+        
         return new GameResource($game);
     }
 

@@ -36,4 +36,5 @@ Route::group([
     Route::apiResource('game_ds', GameDsController::class);
     Route::apiResource('key', KeyController::class);
     Route::get('/fetchds', [RobloxController::class, 'getDatastores']);
+    Route::get('/fetchkeys', [RobloxController::class, 'getKeysAndValues']);
 });
