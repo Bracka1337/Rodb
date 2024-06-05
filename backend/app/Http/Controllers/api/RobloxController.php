@@ -14,7 +14,6 @@ class RobloxController extends Controller
         $game = Game::find($request->input('game_id'));
         $universeId = $game->universeId;
         $apikey = $game->roblox_api_key;
-        dd($universeId, $apikey);
 
         $uri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores", $universeId);
 

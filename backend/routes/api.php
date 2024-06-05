@@ -25,9 +25,6 @@ use Illuminate\Support\Facades\Route;
 // Open routes
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
-Route::get('/roblox-data', [RobloxController::class, 'getDatastores']);
-
-
 
 // Protected routes
 Route::group([
@@ -38,4 +35,5 @@ Route::group([
     Route::apiResource('game', GameController::class);
     Route::apiResource('game_ds', GameDsController::class);
     Route::apiResource('key', KeyController::class);
+    Route::get('/fetchds', [RobloxController::class, 'getDatastores']);
 });
