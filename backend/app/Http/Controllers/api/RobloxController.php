@@ -35,7 +35,7 @@ class RobloxController extends Controller
         $universeId = $game->universeId;
         $apikey = $game->roblox_api_key;
 
-        $uri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores/entries", $universeId);
+        $uri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores/datastore/entries", $universeId);
         $dsName = $request->input('datastoreName');
 
         $client = new Client();
@@ -52,7 +52,7 @@ class RobloxController extends Controller
 
         $values = [];
         foreach ($keys as $key) {
-            $valueUri = sprintf("https://apis.roblox.com/datastores/universes/%d/standard-datastores/entries/entry", $universeId);
+            $valueUri = sprintf("https://apis.roblox.com/datastores/universes/%d/standard-datastores/datastore/entries/entry", $universeId);
             $valueResponse = $client->request('GET', $valueUri, [
                 'headers' => [
                     'x-api-key' => $apikey
