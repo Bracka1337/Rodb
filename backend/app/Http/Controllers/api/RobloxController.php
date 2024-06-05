@@ -67,6 +67,6 @@ class RobloxController extends Controller
             $values[] = ['key' => $key['key'], 'value' => $valueData];
         }
 
-        return response()->json([$values]);
+        return response()->json(['data' => $values]);
     }
 }
