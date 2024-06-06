@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Game;
-use App\Models\Game_ds;
+use App\Models\Gameds;
 
 
 class RobloxController extends Controller
@@ -29,7 +29,7 @@ class RobloxController extends Controller
         $dataFromRoblox = json_decode($response->getBody()->getContents(), true);
 
         foreach ($dataFromRoblox['datastores'] as $datastore) {
-            Game_ds::create([
+            Gameds::create([
                 'name' => $datastore['name'],
                 'game_id' => $request->input('game_id'),
             ]);
