@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Game;
 use App\Models\Gameds;
+use App\Models\Key;
 
 
 class RobloxController extends Controller
@@ -47,8 +48,12 @@ class RobloxController extends Controller
         $universeId = $game->universeId;
         $apikey = $game->roblox_api_key;
 
+        
         $uri = sprintf("https://apis.roblox.com/datastores/v1/universes/%d/standard-datastores/datastore/entries", $universeId);
         $dsName = $request->input('datastoreName');
+        
+        $gamedsRecord = Gameds::where('name', $dsName)->where('game_id', $request->input('game_id'))->first();
+        $gamedsId = $gamedsRecord->id?? null;
 
         $client = new Client();
         $initialResponse = $client->request('GET', $uri, [
@@ -77,10 +82,16 @@ class RobloxController extends Controller
 
             $valueData = json_decode($valueResponse->getBody(), true);
             $values[] = ['key' => $key['key'], 'value' => $valueData];
+
+            $existingDatastore = Key::firstOrCreate(
+                ['key' => $key['key'], 'game_ds_id' => $gamedsId],
+                ['key' => $key['key'], 'value' => $valueData, 'game_ds_id' => $gamedsId]
+            );
+
         }
 
+        $dataFromDB = Key::where('game_ds_id', $gamedsId)->get();
 
-
-        return response()->json(['data' => $values]);
+        return response()->json($dataFromDB);
     }
 }

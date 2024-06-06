@@ -25,7 +25,7 @@ class KeyController extends Controller
         $validated = $request->validate([
             'key' => 'required',
             'value' => 'required',
-            'game_ds_id' => 'required|exists:game__ds,id',
+            'game_ds_id' => 'required|exists:gameds,id',
         ]);
         $key = Key::create($validated);
         return new KeyResource($key);
@@ -47,7 +47,7 @@ class KeyController extends Controller
         $validated = $request->validate([
             'key' => 'required',
             'value' => 'required',
-            'game_ds_id' => 'required|exists:game_ds,id',
+            'game_ds_id' => 'required|exists:gameds,id',
         ]);
         $key->update($validated);
         return new KeyResource($key);
