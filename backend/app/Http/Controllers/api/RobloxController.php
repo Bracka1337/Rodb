@@ -85,7 +85,7 @@ class RobloxController extends Controller
 
             $existingDatastore = Key::firstOrCreate(
                 ['key' => $key['key'], 'game_ds_id' => $gamedsId],
-                ['key' => $key['key'], 'value' => $valueData, 'game_ds_id' => $gamedsId]
+                ['key' => $key['key'], 'value' => $valueResponse->getBody(), 'game_ds_id' => $gamedsId]
             );
 
         }
