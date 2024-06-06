@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Game;
+use App\Models\Game_ds;
+
 
 class RobloxController extends Controller
 {
@@ -26,8 +28,17 @@ class RobloxController extends Controller
 
         $dataFromRoblox = json_decode($response->getBody()->getContents(), true);
 
+        foreach ($dataFromRoblox['datastores'] as $datastore) {
+            Game_ds::create([
+                'name' => $datastore['name'],
+                'game_id' => $request->input('game_id'),
+            ]);
+        }
+
+
         return response()->json($dataFromRoblox);
     }
+
 
     public function getKeysAndValues(Request $request)
     {
@@ -66,6 +77,8 @@ class RobloxController extends Controller
             $valueData = json_decode($valueResponse->getBody(), true);
             $values[] = ['key' => $key['key'], 'value' => $valueData];
         }
+
+
 
         return response()->json(['data' => $values]);
     }
