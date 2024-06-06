@@ -35,8 +35,9 @@ class RobloxController extends Controller
             ]);
         }
 
+        $dataFromDB = Gameds::where('game_id', $request->input('game_id'))->get();
 
-        return response()->json($dataFromRoblox);
+        return response()->json($dataFromDB);
     }
 
 
