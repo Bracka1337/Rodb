@@ -29,10 +29,10 @@ class RobloxController extends Controller
         $dataFromRoblox = json_decode($response->getBody()->getContents(), true);
 
         foreach ($dataFromRoblox['datastores'] as $datastore) {
-            Gameds::create([
-                'name' => $datastore['name'],
-                'game_id' => $request->input('game_id'),
-            ]);
+            $existingDatastore = Gameds::firstOrCreate(
+                ['name' => $datastore['name'], 'game_id' => $request->input('game_id')],
+                ['name' => $datastore['name'], 'game_id' => $request->input('game_id')]
+            );
         }
 
         $dataFromDB = Gameds::where('game_id', $request->input('game_id'))->get();
