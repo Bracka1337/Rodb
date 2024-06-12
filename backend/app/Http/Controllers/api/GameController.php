@@ -15,7 +15,10 @@ class GameController extends Controller
      */
     public function index()
     {
-        return GameResource::collection(Game::all());
+        $user_id = Auth::user()->id;
+
+        return GameResource::collection(Game::where('user_id', $user_id)->get());
+
     }
 
     /**

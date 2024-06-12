@@ -12,9 +12,9 @@ class GameDsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return GameDsResource::collection(Gameds::all());
+        return GameDsResource::collection(Gameds::where('game_id', $request->input('game_id'))->get());
     }
 
     /**

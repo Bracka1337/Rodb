@@ -33,7 +33,7 @@ Route::group([
     Route::get('/profile', [ApiController::class, 'profile']);
     Route::get('/logout', [ApiController::class, 'logout']);
     Route::apiResource('game', GameController::class);
-    Route::apiResource('game_ds', GameDsController::class);
+    Route::apiResource('gameds', GameDsController::class);
     Route::apiResource('key', KeyController::class);
     Route::get('/fetchds', [RobloxController::class, 'getDatastores']);
     Route::get('/fetchkeys', [RobloxController::class, 'getKeysAndValues']);
